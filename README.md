@@ -615,3 +615,5 @@ add the following
     ]
 }
 ```
+
+Additioanlly, refer to the [sample](https://github.com/aws-samples/sync-buckets-state-machine) providing a full example on Syncing two S3 buckets
