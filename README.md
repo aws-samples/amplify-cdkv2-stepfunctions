@@ -38,7 +38,7 @@ cd s3SyncStepFunction
 Next, we will install packages necessary for the application such as Amplify CLI
 
 ```
-npm install -g @aws-amplify/cli
+npm install -g @aws-amplify/cli@beta
 ```
 
  Let’s initialize the application with Amplify CLI. Run the command: 
