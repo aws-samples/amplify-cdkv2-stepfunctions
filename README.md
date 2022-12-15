@@ -462,28 +462,29 @@ Now lets create the StepFunction resource and utilize the resources created in A
 In `cdk-stack.ts` add the following
 
 ```ts
-import * as cdk from '@aws-cdk/core'
-import * as AmplifyHelpers from '@aws-amplify/cli-extensibility-helper'
-import { AmplifyDependentResourcesAttributes } from '../../types/amplify-dependent-resources-ref'
+import * as cdk from "aws-cdk-lib";
+import * as AmplifyHelpers from "@aws-amplify/cli-extensibility-helper";
+import { AmplifyDependentResourcesAttributes } from "../../types/amplify-dependent-resources-ref";
+import { Construct } from "constructs";
 
-import * as lambda from '@aws-cdk/aws-lambda'
-import * as sfn from '@aws-cdk/aws-stepfunctions'
-import * as tasks from '@aws-cdk/aws-stepfunctions-tasks'
-import * as iam from '@aws-cdk/aws-iam'
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import * as sfn from "aws-cdk-lib/aws-stepfunctions";
+import * as tasks from "aws-cdk-lib/aws-stepfunctions-tasks";
+import * as iam from "aws-cdk-lib/aws-iam";
 
 export class cdkStack extends cdk.Stack {
   constructor(
-    scope: cdk.Construct,
+    scope: Construct,
     id: string,
     props?: cdk.StackProps,
     amplifyResourceProps?: AmplifyHelpers.AmplifyResourceProps
   ) {
-    super(scope, id, props)
+    super(scope, id, props);
     /* Do not remove - Amplify CLI automatically injects the current deployment environment in this input parameter */
-    new cdk.CfnParameter(this, 'env', {
-      type: 'String',
-      description: 'Current Amplify CLI env name',
-    })
+    new cdk.CfnParameter(this, "env", {
+      type: "String",
+      description: "Current Amplify CLI env name",
+    });
 
     // Access other Amplify Resources
 
@@ -572,19 +573,6 @@ export class cdkStack extends cdk.Stack {
     })
   }
 }
-```
-
-Modify the `package.json` to contain the following
-
-```json
-  "dependencies": {
-    "@aws-amplify/cli-extensibility-helper": "^2.0.0",
-    "@aws-cdk/core": "^1.159.0",
-    "@aws-cdk/aws-iam": "^1.159.0",
-    "@aws-cdk/aws-stepfunctions-tasks": "^1.159.0",
-    "@aws-cdk/aws-stepfunctions": "^1.159.0",
-    "@aws-cdk/aws-lambda": "^1.159.0"
-  }
 ```
 
 Great, we are now done.
