@@ -351,7 +351,6 @@ Available advanced settings:
 ? Do you want to configure advanced settings? Yes
 ? Do you want to access other resources in this project from your Lambda function? Yes
 ? Select the categories you want this function to have access to. storage
-// Doesn\'t ask me the next prompt, since I only have one Storage resource setup
 ? Storage has 3 resources in this project. Select the one you would like your Lambda to access  < amplify generated s3 storage>
 ? Select the operations you want to permit on < amplify generated s3 storage> create, read, update
 ? Do you want to invoke this function on a recurring schedule? No
