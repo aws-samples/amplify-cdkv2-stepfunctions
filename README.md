@@ -23,6 +23,7 @@ For this walkthrough, you should have the following installed:
 
 * [AWS account](https://signin.aws.amazon.com/signin?redirect_uri=https%3A%2F%2Fportal.aws.amazon.com%2Fbilling%2Fsignup%2Fresume&client_id=signup)
 * [npm](https://www.npmjs.com/)
+* [Node.js](https://nodejs.org/en/download/)
 
 
 
