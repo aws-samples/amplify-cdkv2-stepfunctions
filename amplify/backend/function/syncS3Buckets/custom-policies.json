@@ -1,0 +1,9 @@
+[
+  {
+    "Action": ["s3:GetObject", "s3:PutObject"],
+    "Resource": [
+      "arn:aws:s3:::amplifybackuptest/*",
+      "arn:aws:s3:::amplifybackuptest"
+    ]
+  }
+]

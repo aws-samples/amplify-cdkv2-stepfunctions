@@ -1,0 +1,9 @@
+[
+  {
+    "Action": ["s3:GeObject", "s3:ListBucket"],
+    "Resource": [
+      "arn:aws:s3:::amplifybackuptest/*",
+      "arn:aws:s3:::amplifybackuptest"
+    ]
+  }
+]
