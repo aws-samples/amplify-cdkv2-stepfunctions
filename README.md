@@ -454,7 +454,7 @@ Run the command to add a AWS StepFunction, IAM, and Lambda function CDK librarie
 
 ```bash
 cd amplify/backend/custom/CustomStepfunction
-npm install @aws-cdk/aws-stepfunctions-tasks @aws-cdk/aws-stepfunctions @aws-cdk/aws-lambda @aws-cdk/aws-iam
+npm install aws-cdk-lib
 ```
 
 Now lets create the StepFunction resource and utilize the resources created in Amplify
