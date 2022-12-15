@@ -1,4 +1,4 @@
-# Using StepFunction generated via Amplify CDK V2 to Sync S3 Buckets
+# Using StepFunction generated through Amplify and AWS CDK V2 to Sync S3 Buckets
 
  Amazon Simple Storage Service (Amazon S3) is an object storage service that allow customers to store files of various types and sizes. Amplify generated storage utilizes the S3 functionality to create a S3 storage bucket. But amplify currently only allows users to create one S3 bucket per environment. Which opens up the question of synchronizing data across Amazon S3 buckets (https://aws.amazon.com/s3/) in different environments, allow creating backups for disaster recovery. 
 
