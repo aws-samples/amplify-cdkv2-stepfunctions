@@ -1,4 +1,4 @@
-# Using StepFunction generated via Amplify CDK to Sync S3 Buckets
+# Using StepFunction generated through Amplify and AWS CDK V2 to Sync S3 Buckets
 
  Amazon Simple Storage Service (Amazon S3) is an object storage service that allow customers to store files of various types and sizes. Amplify generated storage utilizes the S3 functionality to create a S3 storage bucket. But amplify currently only allows users to create one S3 bucket per environment. Which opens up the question of synchronizing data across Amazon S3 buckets (https://aws.amazon.com/s3/) in different environments, allow creating backups for disaster recovery. 
 
@@ -23,6 +23,7 @@ For this walkthrough, you should have the following installed:
 
 * [AWS account](https://signin.aws.amazon.com/signin?redirect_uri=https%3A%2F%2Fportal.aws.amazon.com%2Fbilling%2Fsignup%2Fresume&client_id=signup)
 * [npm](https://www.npmjs.com/)
+* [Node.js](https://nodejs.org/en/download/)
 
 
 
@@ -38,7 +39,7 @@ cd s3SyncStepFunction
 Next, we will install packages necessary for the application such as Amplify CLI
 
 ```
-npm install -g @aws-amplify/cli
+npm install -g @aws-amplify/cli@beta
 ```
 
  Let’s initialize the application with Amplify CLI. Run the command: 
@@ -616,4 +617,5 @@ add the following
 }
 ```
 
-Additioanlly, refer to the [sample](https://github.com/aws-samples/sync-buckets-state-machine) providing a full example on Syncing two S3 buckets
+Additionally, refer to the [AWS sample](https://github.com/aws-samples/sync-buckets-state-machine) providing a full example on Syncing two S3 buckets.
+The example can also be utilized when working with Amplify CDK v1 and will require appropriate packages to work.
