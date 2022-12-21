@@ -152,15 +152,14 @@ Add the following code to the generated function
 
 ```js
 const AWS = require('aws-sdk')
+
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-  console.log(`EVENT: ${JSON.stringify(event)}`)
+  const s3 = new AWS.S3()
 
-  var s3 = new AWS.S3()
-  var params = {
-    // Bucket: process.env.STORAGE_<name of amplify generated s3 storage>_BUCKETNAME,
+  let params = {
     Bucket: '<Amplify_generated_bucket>',
     MaxKeys: '100',
   }
@@ -170,11 +169,7 @@ exports.handler = async (event) => {
 
   try {
     s3Objects = await s3.listObjectsV2(params).promise()
-    var contents = s3Objects.Contents
-    s3Keys = contents.map(function (content) {
-      return content.Key
-    })
-    console.log(s3Objects)
+    s3Keys = s3Objects.Contents.map((content) => content.Key)
   } catch (e) {
     console.log(e)
   }
@@ -221,8 +216,6 @@ const AWS = require('aws-sdk')
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-  console.log(`EVENT: ${JSON.stringify(event)}`)
-
   var s3 = new AWS.S3()
   var params = {
     Bucket: '<AWS_console_created_bucket>',
@@ -238,7 +231,6 @@ exports.handler = async (event) => {
     s3Keys = contents.map(function (content) {
       return content.Key
     })
-    console.log(s3Objects)
   } catch (e) {
     console.log(e)
   }
@@ -309,21 +301,19 @@ Add the following code to the `index.js` file
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-  var AmplifyS3keys = JSON.parse(event[0].body)
-  var AWSS3keys = JSON.parse(event[1].body)
+  var amplifyS3Keys = JSON.parse(event[0].body);
+  var awsS3Keys = JSON.parse(event[1].body);
 
-  const uniqueKeys = AmplifyS3keys.filter((x) => !AWSS3keys.includes(x))
-  console.log(uniqueKeys)
+  const uniqueKeys = amplifyS3Keys.filter((x) => !awsS3Keys.includes(x));
 
-  const uniqueKeys1 = AWSS3keys.filter((x) => !AmplifyS3keys.includes(x))
-  console.log(uniqueKeys1)
+  const uniqueKeys1 = awsS3Keys.filter((x) => !amplifyS3Keys.includes(x));
 
-  var result = [uniqueKeys, uniqueKeys1]
+  var result = [uniqueKeys, uniqueKeys1];
   return {
     statusCode: 200,
     body: result,
-  }
-}
+  };
+};
 ```
 
 #### Lambda function to Sync two S3 buckets
@@ -362,54 +352,55 @@ Available advanced settings:
 Add the following code
 
 ```js
-var AWS = require('aws-sdk')
+var AWS = require("aws-sdk");
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-  var s3 = new AWS.S3()
-  var objectKey = event.body
+  var s3 = new AWS.S3();
+  var objectKey = event.body;
 
   async function copytoS3bucket(source, destination, number) {
     if (objectKey[number].length === 0) {
-      return 'S3 bucket on Sync'
+      return "S3 bucket on Sync";
     }
 
-    var sourceBucket = source
-    var destinationBucket = destination
-    var content = []
+    var sourceBucket = source;
+    var destinationBucket = destination;
+    var content = [];
 
     for (var i = 0; i < objectKey[number].length; i++) {
-      var copySource = encodeURI(sourceBucket + '/' + objectKey[number][i])
+      var copySource = encodeURI(sourceBucket + "/" + objectKey[number][i]);
       var copyParams = {
         Bucket: destinationBucket,
         CopySource: copySource,
         Key: objectKey[number][i],
-      }
-      var data
+      };
+      var data;
       try {
-        data = await s3.copyObject(copyParams).promise()
+        data = await s3.copyObject(copyParams).promise();
       } catch (e) {
-        throw e
+        throw e;
       }
-      content.push({ Key: objectKey[number][i], Body: 'Copied', Result: data })
+      content.push({ Key: objectKey[number][i], Body: "Copied", Result: data });
     }
 
-    return content
+    return content;
   }
 
   const res1 = await copytoS3bucket(
-    '<Amplify_Created_Bucket>',
-    '<AWS_Console_created_bucket>',
+    "<Amplify_Created_Bucket>",
+    "<AWS_Console_created_bucket>",
     1
-  )
+  );
   const res2 = await copytoS3bucket(
-    '<AWS_Console_created_bucket>',
-    '<Amplify_Created_Bucket>',
+    "<AWS_Console_created_bucket>",
+    "<Amplify_Created_Bucket>",
     0
-  )
-  return [res1, res2]
-}
+  );
+  return [res1, res2];
+};
+
 ```
 
 Add the following to the `custom-policies.json` file present in the Lambda function folder.
