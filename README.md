@@ -151,34 +151,34 @@ Available advanced settings:
 Add the following code to the generated function
 
 ```js
-const AWS = require('aws-sdk')
+const AWS = require('aws-sdk');
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-  const s3 = new AWS.S3()
+  const s3 = new AWS.S3();
 
-  let params = {
+  const params = {
     Bucket: '<Amplify_generated_bucket>',
-    MaxKeys: '100',
-  }
+    MaxKeys: '100'
+  };
 
-  let s3Objects
-  let s3Keys
+  let s3Objects;
+  let s3Keys;
 
   try {
-    s3Objects = await s3.listObjectsV2(params).promise()
-    s3Keys = s3Objects.Contents.map((content) => content.Key)
+    s3Objects = await s3.listObjectsV2(params).promise();
+    s3Keys = s3Objects.Contents.map((content) => content.Key);
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
 
   return {
     statusCode: 200,
-    body: JSON.stringify(s3Keys || { message: 'No objects found' }),
-  }
-}
+    body: JSON.stringify(s3Keys || { message: 'No objects found' })
+  };
+};
 ```
 
 Note: Replace the placeholders (`<>`) with the name of the S3 bucket generated in the environment parameters.
@@ -211,35 +211,36 @@ Available advanced settings:
 Then add the following code to the `index.js` file.
 
 ```js
-const AWS = require('aws-sdk')
+const AWS = require('aws-sdk');
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-  var s3 = new AWS.S3()
-  var params = {
+  const s3 = new AWS.S3();
+  const params = {
     Bucket: '<AWS_console_created_bucket>',
-    MaxKeys: '100',
-  }
+    MaxKeys: '100'
+  };
 
-  let s3Objects
-  let s3Keys
+  let s3Objects;
+  let s3Keys;
 
   try {
-    s3Objects = await s3.listObjectsV2(params).promise()
-    var contents = s3Objects.Contents
-    s3Keys = contents.map(function (content) {
-      return content.Key
-    })
+    s3Objects = await s3.listObjectsV2(params).promise();
+    const contents = s3Objects.Contents;
+    s3Keys = contents.map(function(content) {
+      return content.Key;
+    });
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
 
   return {
     statusCode: 200,
-    body: JSON.stringify(s3Keys || { message: 'No objects found' }),
-  }
-}
+    body: JSON.stringify(s3Keys || { message: 'No objects found' })
+  };
+};
+
 ```
 
 Add the following to the `custom-policies.json` file present in the Lambda function folder.
@@ -255,9 +256,6 @@ Add the following to the `custom-policies.json` file present in the Lambda funct
   }
 ]
 ```
-
-<!-- probably should add the full placeholder name inside the brackets here -->
-<!-- should we use the GitHub "Note" feature? -->
 
 Note: Replace the placeholders (`<>`) with the name of the s3 bucket created in the AWS console.
 
@@ -301,19 +299,20 @@ Add the following code to the `index.js` file
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-  var amplifyS3Keys = JSON.parse(event[0].body);
-  var awsS3Keys = JSON.parse(event[1].body);
+  const amplifyS3Keys = JSON.parse(event[0].body);
+  const awsS3Keys = JSON.parse(event[1].body);
 
   const uniqueKeys = amplifyS3Keys.filter((x) => !awsS3Keys.includes(x));
 
   const uniqueKeys1 = awsS3Keys.filter((x) => !amplifyS3Keys.includes(x));
 
-  var result = [uniqueKeys, uniqueKeys1];
+  const result = [uniqueKeys, uniqueKeys1];
   return {
     statusCode: 200,
-    body: result,
+    body: result
   };
 };
+
 ```
 
 #### Lambda function to Sync two S3 buckets
@@ -352,50 +351,50 @@ Available advanced settings:
 Add the following code
 
 ```js
-var AWS = require("aws-sdk");
+const AWS = require('aws-sdk');
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-  var s3 = new AWS.S3();
-  var objectKey = event.body;
+  const s3 = new AWS.S3();
+  const objectKey = event.body;
 
   async function copytoS3bucket(source, destination, number) {
     if (objectKey[number].length === 0) {
-      return "S3 bucket on Sync";
+      return 'S3 bucket on Sync';
     }
 
-    var sourceBucket = source;
-    var destinationBucket = destination;
-    var content = [];
+    const sourceBucket = source;
+    const destinationBucket = destination;
+    const content = [];
 
-    for (var i = 0; i < objectKey[number].length; i++) {
-      var copySource = encodeURI(sourceBucket + "/" + objectKey[number][i]);
-      var copyParams = {
+    for (let i = 0; i < objectKey[number].length; i++) {
+      const copySource = encodeURI(sourceBucket + '/' + objectKey[number][i]);
+      const copyParams = {
         Bucket: destinationBucket,
         CopySource: copySource,
-        Key: objectKey[number][i],
+        Key: objectKey[number][i]
       };
-      var data;
+      let data;
       try {
         data = await s3.copyObject(copyParams).promise();
       } catch (e) {
         throw e;
       }
-      content.push({ Key: objectKey[number][i], Body: "Copied", Result: data });
+      content.push({ Key: objectKey[number][i], Body: 'Copied', Result: data });
     }
 
     return content;
   }
 
   const res1 = await copytoS3bucket(
-    "<Amplify_Created_Bucket>",
-    "<AWS_Console_created_bucket>",
+    '<Amplify_Created_Bucket>',
+    '<AWS_Console_created_bucket>',
     1
   );
   const res2 = await copytoS3bucket(
-    "<AWS_Console_created_bucket>",
-    "<Amplify_Created_Bucket>",
+    '<AWS_Console_created_bucket>',
+    '<Amplify_Created_Bucket>',
     0
   );
   return [res1, res2];
