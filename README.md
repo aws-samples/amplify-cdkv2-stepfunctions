@@ -630,5 +630,8 @@ add the following
 }
 ```
 
-Additionally, refer to the [AWS sample](https://github.com/aws-samples/sync-buckets-state-machine) providing a full example on Syncing two S3 buckets.
-The example can also be utilized when working with Amplify and AWS CDK v1, and will require appropriate packages to work.
+### Additonal information
+
+Refer to the [AWS sample](https://github.com/aws-samples/sync-buckets-state-machine) providing a full example on Syncing two S3 buckets.
+
+The CDK v2 example can also be utilized when working with Amplify and AWS CDK v1. Add appropriate AWS CDK V1 packages before deploying.
