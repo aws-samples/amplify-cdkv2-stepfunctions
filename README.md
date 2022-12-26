@@ -4,6 +4,8 @@ Amazon Simple Storage Service (Amazon S3) is an object storage service that allo
 
 [AWS Amplify](https://aws.amazon.com/amplify/) is the fastest and easiest way to build cloud-powered mobile and web apps on AWS. Amplify comprises a set of tools and services that enables front-end web and mobile developers to leverage the power of AWS services to build innovative and feature-rich applications. Among the various resources available Amplify allows users to deploy custom resources using CDK and manage S3 storage bucket.
 
+![cdkv2stepfunctions](https://user-images.githubusercontent.com/87995712/209560124-dfae8a2e-99eb-4749-a769-4b6de6814370.png)
+
 ## Walkthrough
 
 The example utilizes Amplify, AWS CDK v2, storage with Amazon S3, and Lambda function functionality to deploy a StepFunction that syncs S3 buckets. The following example outlines a use case to copy all objects from a source bucket into a destination bucket (two way), but leave out objects that are already present.
