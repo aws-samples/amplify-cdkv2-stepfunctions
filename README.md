@@ -2,7 +2,7 @@
 
 Amazon Simple Storage Service (Amazon S3) is an object storage service that allow customers to store files of various types and sizes. Amplify generated storage utilizes the S3 functionality to create a S3 storage bucket. But amplify currently only allows users to create one S3 bucket per environment. Which opens up the question of synchronizing data across [Amazon S3 buckets](https://aws.amazon.com/s3/) in different environments, allow creating backups for disaster recovery.
 
-[AWS Amplify](https://aws.amazon.com/amplify/) is the fastest and easiest way to build cloud-powered mobile and web apps on AWS. Amplify comprises a set of tools and services that enables front-end web and mobile developers to leverage the power of AWS services to build innovative and feature-rich applications. Among the various resources available Amplify allows users to deploy custom resources using CDK and manage S3 storage bucket.
+[AWS Amplify](https://aws.amazon.com/amplify/) is the fastest and easiest way to build cloud-powered mobile and web apps on AWS. Amplify comprises a set of tools and services that enables front-end web and mobile developers to leverage the power of AWS services to build innovative and feature-rich applications. Among the various resources available Amplify allows users to deploy S3 storage bucket and custom resources using AWS CDK.
 
 ![cdkv2stepfunctions](https://user-images.githubusercontent.com/87995712/209560124-dfae8a2e-99eb-4749-a769-4b6de6814370.png)
 
