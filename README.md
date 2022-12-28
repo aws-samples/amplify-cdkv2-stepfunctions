@@ -35,7 +35,7 @@ mkdir s3SyncStepFunction
 cd s3SyncStepFunction
 ```
 
-Next, we will install the Amplify CLI(Preview)
+Next, install the beta release of the Amplify CLI v11
 
 ```
 npm install -g @aws-amplify/cli@beta
