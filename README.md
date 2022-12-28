@@ -1,8 +1,8 @@
 # Using StepFunction generated through Amplify and AWS CDK V2 to Sync S3 Buckets
 
-[AWS Amplify](https://aws.amazon.com/amplify/) is the fastest and easiest way to build cloud-powered mobile and web apps on AWS. Amplify comprises a set of tools and services that enables front-end web and mobile developers to leverage the power of AWS services to build innovative and feature-rich applications. Among the various resources available, AWS Amplify allows users to deploy S3 storage bucket and custom resources using AWS CDK.
+[AWS Amplify](https://aws.amazon.com/amplify/) is the fastest and easiest way to build cloud-powered mobile and web apps on AWS. AWS Amplify is a suite of tools and services that enables front-end web and mobile developers to leverage the power of AWS services to build innovative and feature-rich applications. Among the various resources available, AWS Amplify allows users to deploy S3 storage bucket and custom resources using AWS CDK.
 
-[Amazon Simple Storage Service (Amazon S3)](https://aws.amazon.com/s3/) is an object storage service that allow customers to store files of various types and sizes. AWS Amplify generated storage utilizes the S3 functionality to create a S3 storage bucket. Currently AWS Amplify allows users to create one S3 bucket per environment which limits synchronizing data across S3 buckets in different environments and allow creating backups for disaster recovery.
+[Amazon Simple Storage Service (Amazon S3)](https://aws.amazon.com/s3/) is an object storage service that allow customers to store files of various types and sizes. AWS Amplify generated storage utilizes the S3 functionality to create a S3 storage bucket. Currently, AWS Amplify allows users to create one S3 bucket per environment, which can limit the ability to synchronize data across different environments and create backups for disaster recovery.
 
 ![cdkv2stepfunctions](https://user-images.githubusercontent.com/87995712/209560124-dfae8a2e-99eb-4749-a769-4b6de6814370.png)
 
@@ -20,7 +20,7 @@ The following information outlines the steps required to create the application
 
 ## Prerequisites
 
-For this walkthrough, you should have the following installed:
+For this walkthrough, you must have the following installed:
 
 - [AWS account](https://signin.aws.amazon.com/signin?redirect_uri=https%3A%2F%2Fportal.aws.amazon.com%2Fbilling%2Fsignup%2Fresume&client_id=signup)
 - [npm](https://www.npmjs.com/)
