@@ -35,12 +35,12 @@ mkdir s3SyncStepFunction
 cd s3SyncStepFunction
 ```
 
-Next, we will install the Amplify CLI
+Next, we will install the Amplify CLI(Preview)
 
 ```
 npm install -g @aws-amplify/cli@beta
 ```
-Note: The Amplify CLI version being applied here's a preview version and a stable version will be launched in the future releases.
+Note: The Amplify CLI version being applied here's a preview version and a stable version will be launched in the future releases. Please refer to [blog post](https://aws.amazon.com/blogs/mobile/use-aws-cdk-v2-with-the-aws-amplify-cli-extensibility-features-beta/) providing additional information on AWS Amplify CLI extensibility features.
 
 Let’s initialize the application with Amplify CLI
 
