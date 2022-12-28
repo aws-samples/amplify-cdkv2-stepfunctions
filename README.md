@@ -1,21 +1,21 @@
 # Using StepFunction generated through Amplify and AWS CDK V2 to Sync S3 Buckets
 
-Amazon Simple Storage Service (Amazon S3) is an object storage service that allow customers to store files of various types and sizes. Amplify generated storage utilizes the S3 functionality to create a S3 storage bucket. But amplify currently only allows users to create one S3 bucket per environment. Which opens up the question of synchronizing data across [Amazon S3 buckets](https://aws.amazon.com/s3/) in different environments, allow creating backups for disaster recovery.
+[AWS Amplify](https://aws.amazon.com/amplify/) is the fastest and easiest way to build cloud-powered mobile and web apps on AWS. Amplify comprises a set of tools and services that enables front-end web and mobile developers to leverage the power of AWS services to build innovative and feature-rich applications. Among the various resources available, AWS Amplify allows users to deploy S3 storage bucket and custom resources using AWS CDK.
 
-[AWS Amplify](https://aws.amazon.com/amplify/) is the fastest and easiest way to build cloud-powered mobile and web apps on AWS. Amplify comprises a set of tools and services that enables front-end web and mobile developers to leverage the power of AWS services to build innovative and feature-rich applications. Among the various resources available Amplify allows users to deploy S3 storage bucket and custom resources using AWS CDK.
+[Amazon Simple Storage Service (Amazon S3)](https://aws.amazon.com/s3/) is an object storage service that allow customers to store files of various types and sizes. AWS Amplify generated storage utilizes the S3 functionality to create a S3 storage bucket. Currently AWS Amplify allows users to create one S3 bucket per environment which limits synchronizing data across S3 buckets in different environments and allow creating backups for disaster recovery.
 
 ![cdkv2stepfunctions](https://user-images.githubusercontent.com/87995712/209560124-dfae8a2e-99eb-4749-a769-4b6de6814370.png)
 
 ## Walkthrough
 
-The example utilizes Amplify, AWS CDK v2, storage with Amazon S3, and Lambda function functionality to deploy a StepFunction that syncs S3 buckets. The following example outlines a use case to copy all objects from a source bucket into a destination bucket (two way), but leave out objects that are already present.
+The example utilizes AWS Amplify, AWS CDK v2, Storage with Amazon S3, and Lambda functions to deploy a StepFunction that syncs S3 buckets. The following example outlines a use case to copy all objects from a source bucket into a destination bucket (bi-directional), and ignore objects already present.
 
-The following information outlines the steps needed in creating the application.
+The following information outlines the steps required to create the application
 
 1. Create an Amplify project
-2. Adding an S3 storage resources via Amplify and AWS console.
-3. Adding Lambda functions to access S3 storage.
-4. Adding CDK stepfunction resource using Amplify custom resource.
+2. Add a S3 storage resource via Amplify and AWS console.
+3. Add Lambda functions to access S3 storage.
+4. Add CDK stepfunction resource using Amplify custom resource.
 5. Test the application on AWS console.
 
 ## Prerequisites
@@ -153,7 +153,7 @@ Available advanced settings:
 Add the following code to the generated function
 
 ```js
-const AWS = require('aws-sdk');
+const AWS = require("aws-sdk");
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
@@ -162,8 +162,8 @@ exports.handler = async (event) => {
   const s3 = new AWS.S3();
 
   const params = {
-    Bucket: '<Amplify_generated_bucket>',
-    MaxKeys: '100'
+    Bucket: "<Amplify_generated_bucket>",
+    MaxKeys: "100",
   };
 
   let s3Objects;
@@ -178,7 +178,7 @@ exports.handler = async (event) => {
 
   return {
     statusCode: 200,
-    body: JSON.stringify(s3Keys || { message: 'No objects found' })
+    body: JSON.stringify(s3Keys || { message: "No objects found" }),
   };
 };
 ```
@@ -213,15 +213,15 @@ Available advanced settings:
 Then add the following code to the `index.js` file.
 
 ```js
-const AWS = require('aws-sdk');
+const AWS = require("aws-sdk");
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
   const s3 = new AWS.S3();
   const params = {
-    Bucket: '<AWS_console_created_bucket>',
-    MaxKeys: '100'
+    Bucket: "<AWS_console_created_bucket>",
+    MaxKeys: "100",
   };
 
   let s3Objects;
@@ -230,7 +230,7 @@ exports.handler = async (event) => {
   try {
     s3Objects = await s3.listObjectsV2(params).promise();
     const contents = s3Objects.Contents;
-    s3Keys = contents.map(function(content) {
+    s3Keys = contents.map(function (content) {
       return content.Key;
     });
   } catch (e) {
@@ -239,10 +239,9 @@ exports.handler = async (event) => {
 
   return {
     statusCode: 200,
-    body: JSON.stringify(s3Keys || { message: 'No objects found' })
+    body: JSON.stringify(s3Keys || { message: "No objects found" }),
   };
 };
-
 ```
 
 Add the following to the `custom-policies.json` file present in the Lambda function folder.
@@ -311,10 +310,9 @@ exports.handler = async (event) => {
   const result = [uniqueKeys, uniqueKeys1];
   return {
     statusCode: 200,
-    body: result
+    body: result,
   };
 };
-
 ```
 
 #### Lambda function to Sync two S3 buckets
@@ -353,7 +351,7 @@ Available advanced settings:
 Add the following code
 
 ```js
-const AWS = require('aws-sdk');
+const AWS = require("aws-sdk");
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
@@ -363,7 +361,7 @@ exports.handler = async (event) => {
 
   async function copytoS3bucket(source, destination, number) {
     if (objectKey[number].length === 0) {
-      return 'S3 bucket on Sync';
+      return "S3 bucket on Sync";
     }
 
     const sourceBucket = source;
@@ -371,11 +369,11 @@ exports.handler = async (event) => {
     const content = [];
 
     for (let i = 0; i < objectKey[number].length; i++) {
-      const copySource = encodeURI(sourceBucket + '/' + objectKey[number][i]);
+      const copySource = encodeURI(sourceBucket + "/" + objectKey[number][i]);
       const copyParams = {
         Bucket: destinationBucket,
         CopySource: copySource,
-        Key: objectKey[number][i]
+        Key: objectKey[number][i],
       };
       let data;
       try {
@@ -383,25 +381,24 @@ exports.handler = async (event) => {
       } catch (e) {
         throw e;
       }
-      content.push({ Key: objectKey[number][i], Body: 'Copied', Result: data });
+      content.push({ Key: objectKey[number][i], Body: "Copied", Result: data });
     }
 
     return content;
   }
 
   const res1 = await copytoS3bucket(
-    '<Amplify_Created_Bucket>',
-    '<AWS_Console_created_bucket>',
+    "<Amplify_Created_Bucket>",
+    "<AWS_Console_created_bucket>",
     1
   );
   const res2 = await copytoS3bucket(
-    '<AWS_Console_created_bucket>',
-    '<Amplify_Created_Bucket>',
+    "<AWS_Console_created_bucket>",
+    "<Amplify_Created_Bucket>",
     0
   );
   return [res1, res2];
 };
-
 ```
 
 Add the following to the `custom-policies.json` file present in the Lambda function folder.
@@ -486,98 +483,97 @@ export class cdkStack extends cdk.Stack {
         amplifyResourceProps.category,
         amplifyResourceProps.resourceName,
         [
-          { category: 'function', resourceName: 'readAmplifyS3' },
-          { category: 'function', resourceName: 'readAwsS3' },
-          { category: 'function', resourceName: 'filterS3keys' },
-          { category: 'function', resourceName: 'syncS3Buckets' },
+          { category: "function", resourceName: "readAmplifyS3" },
+          { category: "function", resourceName: "readAwsS3" },
+          { category: "function", resourceName: "filterS3keys" },
+          { category: "function", resourceName: "syncS3Buckets" },
         ]
-      )
+      );
 
     // import Lamdba functions
-    const readAmplifyS3Arn = cdk.Fn.ref(retVal.function.readAmplifyS3.Arn)
+    const readAmplifyS3Arn = cdk.Fn.ref(retVal.function.readAmplifyS3.Arn);
     const readAmplifyS3 = lambda.Function.fromFunctionArn(
       this,
-      'readAmplifyS3',
+      "readAmplifyS3",
       readAmplifyS3Arn
-    )
+    );
 
-    const readAwsS3Arn = cdk.Fn.ref(retVal.function.readAwsS3.Arn)
+    const readAwsS3Arn = cdk.Fn.ref(retVal.function.readAwsS3.Arn);
     const readAwsS3 = lambda.Function.fromFunctionArn(
       this,
-      'readAwsS3',
+      "readAwsS3",
       readAwsS3Arn
-    )
+    );
 
-    const filterS3keysArn = cdk.Fn.ref(retVal.function.filterS3keys.Arn)
+    const filterS3keysArn = cdk.Fn.ref(retVal.function.filterS3keys.Arn);
     const filterS3keys = lambda.Function.fromFunctionArn(
       this,
-      'filterS3keys',
+      "filterS3keys",
       filterS3keysArn
-    )
+    );
 
-    const syncS3BucketsArn = cdk.Fn.ref(retVal.function.syncS3Buckets.Arn)
+    const syncS3BucketsArn = cdk.Fn.ref(retVal.function.syncS3Buckets.Arn);
     const syncS3Buckets = lambda.Function.fromFunctionArn(
       this,
-      'syncS3Buckets',
+      "syncS3Buckets",
       syncS3BucketsArn
-    )
+    );
 
     // create tasks for StepFunction
-    const getAWSkeysTask = new tasks.LambdaInvoke(this, 'getAWSkeystask', {
+    const getAWSkeysTask = new tasks.LambdaInvoke(this, "getAWSkeystask", {
       lambdaFunction: readAwsS3,
       payloadResponseOnly: true,
-    })
+    });
 
     const getAmplifykeysTask = new tasks.LambdaInvoke(
       this,
-      'getAmplifykeystask',
+      "getAmplifykeystask",
       {
         lambdaFunction: readAmplifyS3,
         payloadResponseOnly: true,
       }
-    )
+    );
 
-    const compareKeysTask = new tasks.LambdaInvoke(this, 'compareKeysTask', {
+    const compareKeysTask = new tasks.LambdaInvoke(this, "compareKeysTask", {
       lambdaFunction: filterS3keys,
       payloadResponseOnly: true,
-    })
+    });
 
-    const s3syncTask = new tasks.LambdaInvoke(this, 's3syncTask', {
+    const s3syncTask = new tasks.LambdaInvoke(this, "s3syncTask", {
       lambdaFunction: syncS3Buckets,
       payloadResponseOnly: true,
-    }).next(new sfn.Succeed(this, 'Done'))
+    }).next(new sfn.Succeed(this, "Done"));
 
-    const serviceRole = new iam.Role(this, 'Role', {
+    const serviceRole = new iam.Role(this, "Role", {
       assumedBy: new iam.AccountRootPrincipal(),
-    })
+    });
 
     // create a StepFunction flow
-    const definition = new sfn.Parallel(this, 'ParallelTask', {})
+    const definition = new sfn.Parallel(this, "ParallelTask", {})
       .branch(getAWSkeysTask)
       .branch(getAmplifykeysTask)
       .next(compareKeysTask)
-      .next(s3syncTask)
+      .next(s3syncTask);
 
     // define State machine
-    const stateMachine = new sfn.StateMachine(this, 'SyncStateMachine', {
+    const stateMachine = new sfn.StateMachine(this, "SyncStateMachine", {
       definition: definition,
       role: serviceRole,
-    })
+    });
   }
 }
 ```
 
 Great, we are now done.
 
-As we are utlizing a Amplify user with `AdministratorAccess-Amplify` permssions. we will need to add additional permissions.
-We can add permissions by
+Since we are using the Amplify user with `AdministratorAccess-Amplify` permssions, we will need to add additional permissions via
 
 1. Selecting the Amplify CLI IAM user then click on `Add permissions`.
 2. Select `Attach existing policies directly`
 3. Search for `AWSStepFunctionsFullAccess`. (Note: depending on your use case please add permissions to restrict access to resources needed)
 4. Then click `Next` and `Add Permissions`.
 
-#### Let’s push the applications
+#### Let’s push the application
 
 Run the command
 
@@ -636,4 +632,4 @@ add the following
 
 Refer to the [AWS sample](https://github.com/aws-samples/sync-buckets-state-machine) providing a full example on Syncing two S3 buckets.
 
-The CDK v2 example can also be utilized when working with Amplify and AWS CDK v1. Add appropriate AWS CDK V1 packages before deploying.
+The CDK v2 example can also be utilized when working with Amplify and AWS CDK v1. Add appropriate AWS CDK v1 packages before deploying.
