@@ -8,11 +8,11 @@
 
 ## Walkthrough
 
-The example utilizes AWS Amplify, AWS CDK v2, Storage with Amazon S3, and Lambda functions to deploy a StepFunction that syncs S3 buckets. The following example outlines a use case to copy all objects from a source bucket into a destination bucket (bi-directional), and ignore objects already present.
+This example demonstrates how to use AWS Amplify, AWS CDK v2, and Amazon S3 storage to deploy a StepFunction that synchronizes S3 buckets. The StepFunction is designed to copy all objects from a source bucket into a destination bucket in a bi-directional manner, while ignoring objects that are already present. In addition, the example uses Lambda functions to facilitate the synchronization process.
 
-The following information outlines the steps required to create the application
+To create the application described, you will need to follow these steps:
 
-1. Create an Amplify project
+1. Set up an Amplify project
 2. Add a S3 storage resource via Amplify and AWS console.
 3. Add Lambda functions to access S3 storage.
 4. Add CDK stepfunction resource using Amplify custom resource.
@@ -26,7 +26,7 @@ For this walkthrough, you must have the following installed:
 - [npm](https://www.npmjs.com/)
 - [Node.js](https://nodejs.org/en/download/)
 
-### Create an Amplify project
+### Set up an Amplify project
 
 Let's create an Amplify project
 
