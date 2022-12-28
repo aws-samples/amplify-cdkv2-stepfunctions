@@ -1,4 +1,4 @@
-# Using StepFunction generated through Amplify and AWS CDK V2 to Sync S3 Buckets
+# Using StepFunction generated through Amplify and AWS CDK V2 to synchronize S3 Buckets
 
 [AWS Amplify](https://aws.amazon.com/amplify/) is the fastest and easiest way to build cloud-powered mobile and web apps on AWS. AWS Amplify is a suite of tools and services that enables front-end web and mobile developers to leverage the power of AWS services to build innovative and feature-rich applications. Among the various resources available, AWS Amplify allows users to deploy S3 storage bucket and custom resources using AWS CDK.
 
