@@ -40,6 +40,7 @@ Next, we will install the Amplify CLI
 ```
 npm install -g @aws-amplify/cli@beta
 ```
+Note: The Amplify CLI version being applied here's a preview version and a stable version will be launched in the future releases.
 
 Let’s initialize the application with Amplify CLI
 
