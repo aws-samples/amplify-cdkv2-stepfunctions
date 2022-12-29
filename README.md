@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Using StepFunction generated through Amplify and AWS CDK V2 to synchronize S3 Buckets
+=======
+# Sync S3 Buckets using AWS Step Functions generated through Amplify and AWS CDK
+>>>>>>> 96a1fa4 (Replace StepFunction with Step Function)
 
 [AWS Amplify](https://aws.amazon.com/amplify/) is the fastest and easiest way to build cloud-powered mobile and web apps on AWS. AWS Amplify is a suite of tools and services that enables front-end web and mobile developers to leverage the power of AWS services to build innovative and feature-rich applications. Among the various resources available, AWS Amplify allows users to deploy S3 storage bucket and custom resources using AWS CDK.
 
@@ -8,14 +12,14 @@
 
 ## Walkthrough
 
-This example demonstrates how to use AWS Amplify, AWS CDK v2, and Amazon S3 storage to deploy a StepFunction that synchronizes S3 buckets. The StepFunction is designed to copy all objects from a source bucket into a destination bucket in a bi-directional manner, while ignoring objects that are already present. In addition, the example uses Lambda functions to facilitate the synchronization process.
+This example demonstrates how to use AWS Amplify, AWS CDK v2, and Amazon S3 storage to deploy a AWS Step Function that synchronizes S3 buckets. The AWS Step Function is designed to copy all objects from a source bucket into a destination bucket in a bi-directional manner, while ignoring objects that are already present. In addition, the example uses Lambda functions to facilitate the synchronization process.
 
 To create the application described, you will need to follow these steps:
 
 1. Set up an Amplify project
 2. Add a S3 storage resource via Amplify and AWS console.
 3. Add Lambda functions to access S3 storage.
-4. Add CDK stepfunction resource using Amplify custom resource.
+4. Add CDK Step Function resource using Amplify custom resource.
 5. Test the application on AWS console.
 
 ## Prerequisites
@@ -426,7 +430,7 @@ Run the following command
 amplify push
 ```
 
-### Adding StepFunction using Amplify custom resource and CDK
+### Add AWS Step Function using Amplify custom resource and CDK
 
 Run the command to add a Amplify custom resource.
 
@@ -440,14 +444,14 @@ amplify add custom
 √ Do you want to edit the CDK stack now? (Y/n) · yes
 ```
 
-Run the command to add a AWS StepFunction, IAM, and Lambda function CDK libraries
+Run the command to add a AWS Step Function, IAM, and Lambda function CDK libraries
 
 ```bash
 cd amplify/backend/custom/CustomStepfunction
 npm install aws-cdk-lib
 ```
 
-Now lets create the StepFunction resource and utilize the resources created in Amplify
+Now lets create the Step Function resource and utilize the resources created in Amplify
 
 In `cdk-stack.ts` add the following
 
@@ -587,7 +591,7 @@ amplify push
 Let's first upload some objects to the S3 buckets.
 
 1. Open the S3 bucket created by Amplify using add storage and upload a file. Also upload a different file with a different key name to the AWS console created S3 bucket
-2. In a browser open the AWS console and Select StepFunctions as the service.
+2. In a browser open the AWS console and Select Step Functions as the service.
 3. Next, select the State Machine that was created.
 4. Select the “Start Execution” button present and on the popup “Start Execution” again.
 
