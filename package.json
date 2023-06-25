@@ -1,6 +1,6 @@
 {
   "dependencies": {
     "@aws-amplify/cli": "^11.0.0-beta.1",
-    "@aws-cdk/aws-stepfunctions-tasks": "^1.179.0"
+    "@aws-cdk/aws-stepfunctions-tasks": "^1.204.0"
   }
 }
